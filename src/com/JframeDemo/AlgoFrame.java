@@ -33,16 +33,11 @@ public class AlgoFrame extends JFrame{
         public void paintComponent(Graphics g){
             super.paintComponent(g);
             Graphics2D g2d = (Graphics2D)g;
-            int strokewidth =10;
-            (g2d).setStroke(new BasicStroke(strokewidth));
-            g2d.setColor(Color.red);
-            Ellipse2D circle = new Ellipse2D.Double(50,50,300,300);
-            g2d.draw(circle);
-            Ellipse2D circle2 = new Ellipse2D.Double(60,60,280,280);
-            g2d.setColor(Color.CYAN);
-            g2d.fill(circle2);
-
-
+            AlgoDrawHelper.setStrokeWidth(g2d,5);
+            AlgoDrawHelper.setColor(g2d,Color.BLUE);
+            AlgoDrawHelper.fillCircle(g2d,canvaswidth/2,canvasheight/2,200);
+            AlgoDrawHelper.setColor(g2d,Color.GREEN);
+            AlgoDrawHelper.drawCircle(g2d,canvaswidth/2,canvasheight/2,200);
         }
         @Override
         public Dimension getPreferredSize(){
