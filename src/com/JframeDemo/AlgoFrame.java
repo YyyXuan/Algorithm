@@ -22,17 +22,26 @@ public class AlgoFrame extends JFrame{
     public AlgoFrame(String title){
         this(title,1024,768);
     }
-    public void setCanvaswidth(int canvaswidth) {
-        this.canvaswidth = canvaswidth;
+    public int getCanvaswidth() {
+        return canvaswidth;
     }
     public int getCanvasheight() {
         return canvasheight;
     }
+    private Circle[] circles;
+    public void render(Circle[] circles){
+        this.circles =circles;
+    }
     private class AlgoCanvas extends JPanel{
+        public AlgoCanvas(){
+            super(true);
+        }
         @Override
         public void paintComponent(Graphics g){
             super.paintComponent(g);
             Graphics2D g2d = (Graphics2D)g;
+            RenderingHints hints = new RenderingHints(RenderingHints.KEY_ANTIALIASING,RenderingHints.VALUE_ANTIALIAS_ON);
+            g2d.addRenderingHints(hints);
             AlgoDrawHelper.setStrokeWidth(g2d,5);
             AlgoDrawHelper.setColor(g2d,Color.BLUE);
             AlgoDrawHelper.fillCircle(g2d,canvaswidth/2,canvasheight/2,200);
