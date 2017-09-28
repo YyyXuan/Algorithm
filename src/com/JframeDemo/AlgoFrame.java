@@ -4,6 +4,8 @@ import javax.swing.event.EventListenerList;
 import java.awt.*;
 import java.awt.geom.Ellipse2D;
 
+import static java.awt.Color.red;
+
 public class AlgoFrame extends JFrame{
     private int canvaswidth;
     private int canvasheight;
@@ -31,22 +33,25 @@ public class AlgoFrame extends JFrame{
     private Circle[] circles;
     public void render(Circle[] circles){
         this.circles =circles;
+        this.repaint();
+
     }
     private class AlgoCanvas extends JPanel{
         public AlgoCanvas(){
             super(true);
-        }
+        }           //双缓存
         @Override
         public void paintComponent(Graphics g){
             super.paintComponent(g);
             Graphics2D g2d = (Graphics2D)g;
             RenderingHints hints = new RenderingHints(RenderingHints.KEY_ANTIALIASING,RenderingHints.VALUE_ANTIALIAS_ON);
             g2d.addRenderingHints(hints);
-            AlgoDrawHelper.setStrokeWidth(g2d,5);
-            AlgoDrawHelper.setColor(g2d,Color.BLUE);
-            AlgoDrawHelper.fillCircle(g2d,canvaswidth/2,canvasheight/2,200);
-            AlgoDrawHelper.setColor(g2d,Color.GREEN);
-            AlgoDrawHelper.drawCircle(g2d,canvaswidth/2,canvasheight/2,200);
+            for (Circle circle:circles) {
+                AlgoDrawHelper.setStrokeWidth(g2d,1);
+                AlgoDrawHelper.setColor(g2d,red);
+                AlgoDrawHelper.drawCircle(g2d,circle.x,circle.y,circle.getR());
+            }//抗锯齿
+
         }
         @Override
         public Dimension getPreferredSize(){
